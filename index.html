@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Your Startup — Coming Soon</title>
+  <title>alethic AI</title>
 
   <!-- Hand-written font (one file, 35 KB) -->
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet" />
@@ -13,6 +13,12 @@
 
   <!-- Tailwind via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
 
   <style>
     @layer utilities {
@@ -99,16 +105,75 @@
       position: relative;
       z-index: 10 !important;
     }
+
+  /* Navbar styles - slower transition for smoother morph */
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(22, 26, 51, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(110, 65, 226, 0.2);
+    transform: translateY(-100%);
+    transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1); /* Slower, smoother easing */
+  }
+
+  .navbar.visible {
+    transform: translateY(0);
+  }
+
+  .navbar-logo {
+    height: 3rem;
+    width: auto;
+    opacity: 0;
+    transform: scale(0.8) translateY(10px);
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.2s; /* Delayed entrance for smoother morph */
+  }
+
+  .navbar.visible .navbar-logo {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  /* Hero logo animation - synchronized timing */
+  .hero-logo {
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1); /* Match navbar timing */
+  }
+
+  .hero-logo.scrolled {
+    opacity: 0;
+    transform: scale(0.7) translateY(-30px); /* More pronounced scale down */
+  }
   </style>
 </head>
 
 <body class="bg-[#161A33] text-white font-sans">
+  <!-- Navbar -->
+  <nav id="navbar" class="navbar">
+    <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center">
+        <img src="logo.svg" alt="alethic AI Logo" class="navbar-logo" />
+      </div>
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="#why-different" class="text-[#D3D8E0]/70 hover:text-[#6E41E2] transition-colors duration-200">Features</a>
+        <a href="#our-approach" class="text-[#D3D8E0]/70 hover:text-[#6E41E2] transition-colors duration-200">Approach</a>
+        <a href="#contact" class="bg-[#6E41E2] hover:bg-[#6E41E2]/80 px-4 py-2 rounded-lg transition-colors duration-200">Contact</a>
+      </div>
+    </div>
+  </nav>
+
   <div data-scroll-container>
     <!-- Hero section -->
     <section data-scroll-section class="min-h-screen flex items-center justify-center text-center px-4">
       <div id="vanta-bg" class="fixed top-0 w-screen" 
       style="max-width: 100vw; height: 100vh; pointer-events: none; z-index: 1;"></div>
       <div class="flex flex-col items-center space-y-4 relative z-10">
+        <!-- Logo -->
+        <div id="hero-logo" class="mb-8 hero-logo" data-scroll data-scroll-speed="-0.5" data-scroll-class="fade-in">
+          <img src="logo.svg" alt="Aetna Logic Logo" class="h-36 w-auto opacity-90" />
+        </div>
         <h1 class="leading-none tracking-tight font-extrabold">
           <div 
             data-scroll 
@@ -265,21 +330,24 @@
               data-scroll
               data-scroll-sticky
               data-scroll-target="#our-approach-container">
+
+            <!-- Spacer -->
+            <div class="h-24"></div>
             
             <!-- Title - stays at the top -->
             <div class="text-4xl md:text-6xl text-[#D3D8E0]/60 text-center font-light mb-8 relative z-10">
               Our Unique Approach
             </div>
             
-            <!-- Middle area with background and graph -->
+            <!-- Middle area with graph -->
             <div class="flex-grow flex flex-col items-center justify-center relative overflow-hidden">
               <!-- Remove Vanta container and keep only the 3D Graph -->
               <div id="graph-container" 
-              class="relative z-10 w-full h-[600px] opacity-0 transform translate-x-0"
+              class="relative z-10 w-full h-[400px] opacity-0 transform translate-x-0"
               data-scroll
               data-scroll-class="graph-visible"
               data-scroll-offset="100">
-                <div id="graph3d" class="w-full h-[600px] flex items-center justify-center"></div>
+                <div id="graph3d" class="w-full h-[400px] flex items-center justify-center"></div>
               </div>          
             </div>
           </div>
@@ -328,7 +396,7 @@
     </section>
 
     <!-- Contact Form -->
-    <section data-scroll-section class="min-h-screen flex flex-col items-center justify-center px-6">
+    <section id="contact" data-scroll-section class="min-h-screen flex flex-col items-center justify-center px-6">
       <hr class="border-t border-[#6E41E2]/40 w-1/2 mx-auto my-20"
           data-scroll data-scroll-delay="0.1" data-scroll-speed="4" />
 
@@ -401,6 +469,64 @@
     })();
   </script>
 
+  <!-- Navbar Scroll Effect -->
+  <script>
+    let navbar, heroLogo, isNavbarVisible = false;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      navbar = document.getElementById('navbar');
+      heroLogo = document.getElementById('hero-logo');
+      
+      // Smooth scroll for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          const target = document.querySelector(targetId);
+          if (target) {
+            if (window.scroll) {
+              window.scroll.scrollTo(target);
+            } else {
+              target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }
+          }
+        });
+      });
+    });
+
+    // Updated function with smoother transition logic
+    function handleNavbarScroll(scrollY) {
+      const transitionStart = 150; // Start transition earlier
+      const transitionEnd = 250;   // Complete transition later
+      
+      // Calculate progress between 0 and 1
+      const progress = Math.max(0, Math.min(1, (scrollY - transitionStart) / (transitionEnd - transitionStart)));
+      
+      // Hero logo: start fading at transition start
+      if (scrollY > transitionStart) {
+        if (!heroLogo.classList.contains('scrolled')) {
+          heroLogo.classList.add('scrolled');
+        }
+      } else {
+        heroLogo.classList.remove('scrolled');
+      }
+      
+      // Navbar: appear slightly after hero starts fading for overlap effect
+      const shouldShowNavbar = scrollY > transitionStart + 30; // 30px delay for smooth morph
+      
+      if (shouldShowNavbar && !isNavbarVisible) {
+        navbar.classList.add('visible');
+        isNavbarVisible = true;
+      } else if (!shouldShowNavbar && isNavbarVisible) {
+        navbar.classList.remove('visible');
+        isNavbarVisible = false;
+      }
+    }
+  </script>
+
   <!-- Locomotive Scroll Setup -->
   <script>
     window.addEventListener("load", () => {
@@ -409,6 +535,17 @@
         el: document.querySelector("[data-scroll-container]"),
         smooth: true,
         lerp: 0.08,
+      });
+      
+      // Make scroll available globally for navigation
+      window.scroll = scroll;
+      
+      // Listen to Locomotive Scroll events for navbar
+      scroll.on('scroll', (obj) => {
+        // Handle navbar visibility based on scroll position
+        if (typeof handleNavbarScroll === 'function') {
+          handleNavbarScroll(obj.scroll.y);
+        }
       });
       
       // Create our scroll-based opacity effect for boxes
@@ -454,41 +591,49 @@
   </script>
 
 <!-- Vanta Background Setup -->
+<!-- Vanta Background Setup -->
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // Make sure we wait for everything to load
+    const vantaBg = document.getElementById('vanta-bg');
+    
+    // Initialize Vanta
+    const vantaEffect = VANTA.DOTS({
+      el: "#vanta-bg",
+      mouseControls: false,
+      touchControls: false,
+      gyroControls: false,
+      minHeight: window.innerHeight,
+      minWidth: window.innerWidth * 1.5,
+      scale: 4.0,
+      scaleMobile: 4.0,
+      backgroundColor: 0x161A33,
+      color: 0x6e41e2,
+      spacing: 27.00,
+      showLines: false,
+      size: 1.0,
+      speed: 0.0
+    });
+    
+    // Override the camera animation by setting position directly after initialization
     setTimeout(() => {
-      // Initialize Vanta with adjusted height settings and no animation
-      const vantaEffect = VANTA.DOTS({
-        el: "#vanta-bg",
-        mouseControls: false,
-        touchControls: false,
-        gyroControls: false,
+      if (vantaEffect && vantaEffect.camera) {
+        // Set camera to final position immediately (skip the smooth animation)
+        vantaEffect.camera.position.x = vantaEffect.camera.tx || 0;
+        vantaEffect.camera.position.y = vantaEffect.camera.ty || 50;
+        vantaEffect.camera.position.z = vantaEffect.camera.tz || 350;
+        vantaEffect.camera.lookAt(0, 0, 0);
+      }
+      vantaBg.style.opacity = '1';
+    }, 100);
+    
+    // Handle resize events
+    window.addEventListener('resize', () => {
+      vantaEffect.resize();
+      vantaEffect.setOptions({
         minHeight: window.innerHeight,
-        minWidth: window.innerWidth * 1.5,
-        scale: 1.0,
-        scaleMobile: 1.0,
-        backgroundColor: 0x161A33,
-        color: 0x6e41e2,
-        spacing: 27.00,
-        showLines: false,
-        // Skip initial animation by setting these properties:
-        points: 0, // Start with no animation points
-        maxDistance: 0, // No animation distance
-        speedFactor: 0, // No animation speed
-        animationSpeed: 0, // No animation speed
-        initialTransitionDuration: 0 // Skip initial transition
+        minWidth: window.innerWidth * 1.5
       });
-      
-      // Handle resize events
-      window.addEventListener('resize', () => {
-        vantaEffect.resize();
-        vantaEffect.setOptions({
-          minHeight: window.innerHeight,
-          minWidth: window.innerWidth * 1.5
-        });
-      });
-    }, 300); // Small delay to ensure DOM is fully ready
+    });
   });
 </script>
 
