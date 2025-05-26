@@ -219,6 +219,55 @@
     position: relative !important;
     isolation: isolate !important;
   }
+
+  /* Disable sticky positioning and grid on mobile/tablet */
+  #our-approach-container .grid {
+    display: block !important;
+  }
+  
+  /* Left column - remove sticky behavior */
+  #our-approach-container .lg\:col-span-6 {
+    position: static !important;
+    height: auto !important;
+    padding-top: 2rem !important;
+  }
+  
+  /* Right column - remove large top padding */
+  #our-approach-container .lg\:col-span-5 {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+  
+  /* Reduce spacing between text boxes */
+  #our-approach-container .space-y-\[25vh\] > * + * {
+    margin-top: 3rem !important;
+  }
+  
+  /* Make graph container visible and properly sized */
+  #graph-container {
+    width: 100% !important;
+    height: 300px !important;
+    margin: 2rem 0 !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  /* Ensure graph is visible */
+  #graph3d {
+    height: 300px !important;
+    width: 100% !important;
+  }
+  
+  /* Make text boxes always visible */
+  .scroll-opacity-box {
+    opacity: 1 !important;
+    margin-bottom: 2rem !important;
+  }
+  
+  /* Adjust section spacing */
+  #our-approach-container {
+    min-height: auto !important;
+  }
 }
   
   /* Tablet adjustments */
@@ -744,7 +793,7 @@
     // Setup the 3D graph once DOM is loaded
     document.addEventListener('DOMContentLoaded', () => {
       const N = 150;
-      let distance = 400;
+      let distance = window.innerWidth <= 640 ? 650 : 400; // Zoom out more on mobile
       const rand = mulberry32(12345);
       
       // Generate graph data
