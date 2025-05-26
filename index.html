@@ -268,6 +268,25 @@
   #our-approach-container {
     min-height: auto !important;
   }
+
+  /* Make the main title bigger on mobile */
+  #why-different h3 {
+    font-size: 3rem !important; /* Bigger than text-4xl */
+    line-height: 1.1 !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  /* Make the subtitle/description bigger on mobile */
+  #why-different p {
+    font-size: 1.25rem !important; /* Bigger than base text */
+    line-height: 1.4 !important;
+  }
+  
+  /* Make the feature titles bigger on mobile */
+  #why-different h2 {
+    font-size: 2.5rem !important; /* Reduce from 8vw to fixed size for better readability */
+    line-height: 1.1 !important;
+  }
 }
   
   /* Tablet adjustments */
@@ -379,7 +398,7 @@
             style="top:6rem">
     
           <!-- Spacer -->
-          <div class="h-48"></div>
+          <div class="h-24 md:h-48"></div>
 
           <h3 class="text-4xl md:text-6xl text-[#D3D8E0]/70 mb-4 leading-snug">
             We're different
@@ -394,7 +413,7 @@
         <div id="scroll-region" class="md:w-3/5">
           <div class="space-y-[10vh]">
             <!-- Empty spacer block to delay first feature appearance -->
-            <div class="min-h-[50vh]"></div>
+            <div class="md:min-h-[50vh]"></div>
             
             <!-- Block 1 -->
             <div class="relative min-h-[40vh] flex items-center">
@@ -472,7 +491,7 @@
               data-scroll-target="#our-approach-container">
 
             <!-- Spacer -->
-            <div class="h-24"></div>
+            <div class="md:h-24"></div>
             
             <!-- Title - stays at the top -->
             <div class="text-4xl md:text-6xl text-[#D3D8E0]/60 text-center font-light mb-8 relative z-10">
