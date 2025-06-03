@@ -867,7 +867,7 @@
             Graph.height(height);
           }
           if (typeof Graph.zoomToFit === 'function') {
-            Graph.zoomToFit(0, 5); // 0ms transition, 5px padding
+            Graph.zoomToFit(0, 10); // 0ms transition, 5px padding
           } else if (typeof Graph.refresh === 'function') {
             // Fallback to refresh if zoomToFit is somehow not available
             Graph.refresh();
