@@ -805,6 +805,7 @@
 
     // Setup the 3D graph once DOM is loaded
     document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
       const N = 150;
       let distance = window.innerWidth <= 640 ? 650 : 400; // Zoom out more on mobile
       const rand = mulberry32(12345);
@@ -855,6 +856,41 @@
 
       Graph.renderer().setClearColor(0x000000, 0);
 
+      // Placeholder for finalizeGraphLayout (will be properly defined in next step)
+      function finalizeGraphLayout(width, height) {
+        console.log('Graph container dimensions obtained:', width, height);
+        if (Graph) {
+          if (typeof Graph.width === 'function') {
+            Graph.width(width);
+          }
+          if (typeof Graph.height === 'function') {
+            Graph.height(height);
+          }
+          if (typeof Graph.zoomToFit === 'function') {
+            Graph.zoomToFit(0, 5); // 0ms transition, 5px padding
+          } else if (typeof Graph.refresh === 'function') {
+            // Fallback to refresh if zoomToFit is somehow not available
+            Graph.refresh();
+          }
+        }
+      }
+
+      let dimensionRetries = 0;
+      const maxDimensionRetries = 50; // Approx 5 seconds (50 * 100ms)
+      function checkGraphDimensionsAndFinalize() {
+        const graph3dContainer = document.getElementById('graph3d');
+        if (graph3dContainer && graph3dContainer.offsetWidth > 0 && graph3dContainer.offsetHeight > 0) {
+          finalizeGraphLayout(graph3dContainer.offsetWidth, graph3dContainer.offsetHeight);
+        } else if (dimensionRetries < maxDimensionRetries) {
+          dimensionRetries++;
+          setTimeout(checkGraphDimensionsAndFinalize, 100); // Check again shortly
+        } else {
+          console.warn('Graph container dimensions not available after maximum retries.');
+          // Optionally, call finalizeGraphLayout with default/fallback dimensions or do nothing
+        }
+      }
+      checkGraphDimensionsAndFinalize(); // Initial call to start polling for dimensions
+
       // Camera orbit animation
       let angle = 0;
       setInterval(() => {
@@ -864,6 +900,7 @@
         });
         angle += Math.PI / 300;
       }, 60);
+    }, 200);
     });
   </script>
 </body>
