@@ -817,105 +817,168 @@
       };
     }
 
-    // Setup the 3D graph once DOM is loaded
-    document.addEventListener('DOMContentLoaded', () => {
-      setTimeout(() => {
-      const N = 150;
-      let distance = window.innerWidth <= 640 ? 650 : 400; // Zoom out more on mobile
-      const rand = mulberry32(12345);
+// 3D Graph Setup - Fixed but preserving original appearance
+// This version fixes the initialization issue while keeping the original visual behavior
+
+// Seeded random number generator for reproducible results
+function mulberry32(seed) {
+  return function() {
+    seed |= 0;
+    seed = seed + 0x6D2B79F5 | 0;
+    let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+
+// Wait for container to have proper dimensions (minimal waiting)
+function waitForGraphContainer(maxAttempts = 20) {
+  return new Promise((resolve, reject) => {
+    let attempts = 0;
+    
+    function checkContainer() {
+      const container = document.getElementById('graph3d');
+      const graphContainer = document.getElementById('graph-container');
       
-      // Generate graph data
-      const gData = {
-        nodes: [...Array(N).keys()].map(i => {
-          const rnd = rand();
-          let shape = "sphere"; // default
+      if (!container || !graphContainer) {
+        if (attempts < maxAttempts) {
+          attempts++;
+          setTimeout(checkContainer, 50);
+          return;
+        }
+        reject(new Error('Graph containers not found'));
+        return;
+      }
+      
+      const containerRect = container.getBoundingClientRect();
+      
+      // More lenient check - just ensure container exists and has some dimensions
+      if (containerRect.width > 0 && containerRect.height > 0) {
+        resolve({
+          container,
+          graphContainer,
+          width: containerRect.width,
+          height: containerRect.height
+        });
+      } else if (attempts < maxAttempts) {
+        attempts++;
+        setTimeout(checkContainer, 50);
+      } else {
+        // Fallback - proceed anyway with default dimensions
+        resolve({
+          container,
+          graphContainer,
+          width: 800,
+          height: 400
+        });
+      }
+    }
+    
+    checkContainer();
+  });
+}
 
-          if (rnd < 0.1) shape = "box";     // 10% chance
-          else if (rnd < 0.2) shape = "cone"; // next 10% chance
+// Initialize graph with original settings but proper dimension handling
+async function initializeGraph() {
+  try {
+    // Quick check for container readiness
+    const { container, width, height } = await waitForGraphContainer();
+    
+    const N = 150;
+    let distance = window.innerWidth <= 640 ? 700 : 450;
+    const rand = mulberry32(12345);
+    
+    // Generate graph data (same as original)
+    const gData = {
+      nodes: [...Array(N).keys()].map(i => {
+        const rnd = rand();
+        let shape = "sphere";
+        if (rnd < 0.1) shape = "box";
+        else if (rnd < 0.2) shape = "cone";
+        return { id: i, shape };
+      }),
+      links: [...Array(N).keys()]
+        .filter(id => id)
+        .map(id => ({
+          source: id,
+          target: Math.round(rand() * (id - 1))
+        }))
+    };
 
-          return { id: i, shape };
-        }),
-        links: [...Array(N).keys()]
-          .filter(id => id)
-          .map(id => ({
-            source: id,
-            target: Math.round(rand() * (id - 1))
-          }))
-      };
+    // Initialize with explicit dimensions but original settings
+    const Graph = new ForceGraph3D(container)
+      .width(width)
+      .height(height)
+      .cooldownTime(100) // Keep original short cooldown
+      .enableNodeDrag(false)
+      .enableNavigationControls(false)
+      .showNavInfo(false)
+      .cameraPosition({ z: distance, x: 0 }) // Set camera position immediately
+      .backgroundColor("rgba(0,0,0,0)")
+      .nodeRelSize(1)
+      .nodeResolution(16)
+      .nodeColor(() => "#D3D8E0")
+      .linkColor(() => "#D3D8E0")
+      .linkWidth(1)
+      .linkDirectionalParticles(2)
+      .linkDirectionalParticleWidth(2)
+      .linkDirectionalParticleColor(() => "#D3D8E0")
+      .graphData(gData); // Load data immediately
 
-      // Initialize the 3D graph
-      const Graph = new ForceGraph3D(document.getElementById('graph3d'));
-      Graph
-        .cooldownTime(Infinity)
-        // disable navigation and camera controls
-        .enableNodeDrag(false)
-        .enableNavigationControls(false)
-        .showNavInfo(false)
-        .cameraPosition({ z: distance, x: 0 })
-        // format graph
-        .backgroundColor("rgba(0,0,0,0)")
-        .height(600)
-        .nodeRelSize(1)
-        .nodeResolution(16)
-        .nodeColor(() => "#D3D8E0")
-        .linkColor(() => "#D3D8E0")
-        .linkWidth(1)
-        .cooldownTime(100)
-        // add particles
-        .linkDirectionalParticles(2)
-        .linkDirectionalParticleWidth(2)
-        .linkDirectionalParticleColor(() => "#D3D8E0")
-        // Add nodes
-        .graphData(gData);
-
+    // Set renderer background
+    if (Graph.renderer) {
       Graph.renderer().setClearColor(0x000000, 0);
+    }
 
-      // Placeholder for finalizeGraphLayout (will be properly defined in next step)
-      function finalizeGraphLayout(width, height) {
-        console.log('Graph container dimensions obtained:', width, height);
-        if (Graph) {
-          if (typeof Graph.width === 'function') {
-            Graph.width(width);
-          }
-          if (typeof Graph.height === 'function') {
-            Graph.height(height);
-          }
-          if (typeof Graph.zoomToFit === 'function') {
-            Graph.zoomToFit(0, 20); // 0ms transition, 5px padding
-          } else if (typeof Graph.refresh === 'function') {
-            // Fallback to refresh if zoomToFit is somehow not available
-            Graph.refresh();
-          }
-        }
-      }
-
-      let dimensionRetries = 0;
-      const maxDimensionRetries = 50; // Approx 5 seconds (50 * 100ms)
-      function checkGraphDimensionsAndFinalize() {
-        const graph3dContainer = document.getElementById('graph3d');
-        if (graph3dContainer && graph3dContainer.offsetWidth > 0 && graph3dContainer.offsetHeight > 0) {
-          finalizeGraphLayout(graph3dContainer.offsetWidth, graph3dContainer.offsetHeight);
-        } else if (dimensionRetries < maxDimensionRetries) {
-          dimensionRetries++;
-          setTimeout(checkGraphDimensionsAndFinalize, 100); // Check again shortly
-        } else {
-          console.warn('Graph container dimensions not available after maximum retries.');
-          // Optionally, call finalizeGraphLayout with default/fallback dimensions or do nothing
-        }
-      }
-      checkGraphDimensionsAndFinalize(); // Initial call to start polling for dimensions
-
-      // Camera orbit animation
-      let angle = 0;
-      setInterval(() => {
+    // Start camera orbit animation immediately (like original)
+    let angle = 0;
+    const animationInterval = setInterval(() => {
+      try {
         Graph.cameraPosition({
           x: distance * Math.sin(angle),
           z: distance * Math.cos(angle)
         });
         angle += Math.PI / 300;
-      }, 60);
-    }, 200);
+      } catch (error) {
+        console.error('Animation error:', error);
+        clearInterval(animationInterval);
+      }
+    }, 60);
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      const newRect = container.getBoundingClientRect();
+      if (newRect.width > 0 && newRect.height > 0) {
+        Graph.width(newRect.width).height(newRect.height);
+        distance = window.innerWidth <= 640 ? 650 : 400;
+      }
     });
+    
+    return Graph;
+    
+  } catch (error) {
+    console.error('Graph initialization failed:', error);
+    
+    // Single retry with shorter delay
+    setTimeout(() => {
+      initializeGraph();
+    }, 1000);
+  }
+}
+
+// Setup the 3D graph once DOM is loaded (original approach but with dimension check)
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    initializeGraph();
+  }, 200); // Keep original short delay
+});
+
+// Backup initialization (but don't duplicate if already initialized)
+window.addEventListener('load', () => {
+  if (!document.querySelector('#graph3d canvas')) {
+    setTimeout(initializeGraph, 300);
+  }
+});
   </script>
 </body>
 </html>
