@@ -5,28 +5,24 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
   <!--  Essential Open Graph  -->
-  <meta property="og:title"       content="uplift — AI-based user testing" />
-  <meta property="og:description" content="Create a digital twin of your site and test new features safely—no live traffic needed." />
-  <meta property="og:image"       content="https://alethic-ai.com/banner.png" />
-  <meta property="og:url"         content="https://alethic-ai.com/" />
-  <meta property="og:type"        content="website" />
+  <meta property="og:title" content="kintra — Family Planning Platform for Swiss Employers" />
+  <meta property="og:description" content="A holistic family-planning platform for modern employers in Switzerland. Up to 80% lower replacement & attrition costs." />
+  <meta property="og:image" content="https://www.kintrafamily.com/banner.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="kintra — Family Planning Platform for Swiss Employers" />
+  <meta property="og:url" content="https://www.kintrafamily.com/" />
+  <meta property="og:type" content="website" />
 
-  <!--  Twitter card (also read by many other crawlers)  -->
-  <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="uplift — AI-based user testing" />
-  <meta name="twitter:description" content="Create a digital twin of your site and test new features safely—no live traffic needed." />
-  <meta name="twitter:image"       content="https://alethic-ai.com/banner.png" />
+  <!--  Twitter card  -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="kintra — Family Planning Platform for Swiss Employers" />
+  <meta name="twitter:description" content="A holistic family-planning platform for modern employers in Switzerland. Up to 80% lower replacement & attrition costs." />
+  <meta name="twitter:image" content="https://www.kintrafamily.com/banner.png" />
+  <meta name="twitter:image:alt" content="kintra — Family Planning Platform for Swiss Employers" />
 
-  <title>uplift</title>
-
-  <!-- Hand-written font (one file, 35 KB) -->
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet" />
-
-  <!-- Locomotive Scroll CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css" />
-
-  <!-- Tailwind via CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>kintra — Family Planning Platform</title>
 
   <!-- Favicon -->
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -34,951 +30,485 @@
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
   <link rel="manifest" href="site.webmanifest">
 
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
+
+
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
     @layer utilities {
-      .font-hand { font-family: 'Caveat', cursive; }
+      .font-display { font-family: 'Inter', sans-serif; }
     }
 
     /* Base styles */
     html, body {
       margin: 0;
       height: 100%;
-      overflow-x: hidden; /* Prevent horizontal scrollbar */
+      overflow-x: hidden;
+      font-family: 'Inter', sans-serif;
     }
 
-    /* Animation keyframes */
-    @keyframes strike {
-      from { text-decoration-color: transparent; }
-      to   { text-decoration-color: rgba(211,216,224,0.7); }
+    /* Gradient blob animation */
+    .gradient-blob {
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 50%,
+        rgba(255, 179, 71, 0.9) 0%,
+        rgba(255, 107, 107, 0.8) 30%,
+        rgba(168, 85, 247, 0.7) 70%);
+      filter: blur(60px);
+      animation: float 20s ease-in-out infinite;
+      z-index: 1;
     }
 
-    /* Animation classes */
-    .strike-anim {
-      animation: strike 0.6s ease 0.2s both;
+    @keyframes float {
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+      }
+      33% {
+        transform: translate(50px, -30px) scale(1.1);
+      }
+      66% {
+        transform: translate(-30px, 20px) scale(0.95);
+      }
     }
 
+    /* Fade in animations */
     .fade-in {
-      opacity: 1 !important;
-      transition: opacity 0.8s ease;
-    }
-
-    .graph-visible {
-      transform: translateX(0) !important;
-      opacity: 1 !important;
-      transition: transform 4s cubic-bezier(0.16, 0.76, 0.33, 1), opacity 3s ease;
-    }
-
-    .fade-in-up {
-      opacity: 1 !important;
-    }
-
-    /* Header title animation */
-    .c-header_title_line {
-      display: block;
       opacity: 0;
-      transform: translateY(100%) rotateX(-80deg);
-      transform-origin: center top;
-      transform-style: preserve-3d;
-      transition: opacity 1.5s cubic-bezier(.215, .61, .355, 1),
-                  transform 1.5s cubic-bezier(.215, .61, .355, 1);
+      animation: fadeIn 1s ease forwards;
     }
 
-    .inview {
-      opacity: 1 !important;
-    }
-    
-    /* Scroll opacity animation */
-    .scroll-opacity-box {
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-    
-    /* Vanta background container */
-    #vanta-bg {
-      z-index: 1 !important;
-      width: 100vw !important;
-      max-width: none !important;
-      overflow: visible !important;
-    }
-    
-    /* Ensure Vanta canvas is full width */
-    #vanta-bg canvas {
-      width: 100vw !important;
-      max-width: none !important;
-      left: 0 !important;
-    }
-    
-    /* Make sure text is above the background */
-    .text-4xl, .text-6xl, h2, h3, p, .scroll-opacity-box {
-      position: relative;
-      z-index: 5 !important;
-    }
-    
-    /* Ensure graph is above background */
-    #graph-container, #graph3d {
-      position: relative;
-      z-index: 10 !important;
+    .fade-in-delay-1 {
+      animation-delay: 0.2s;
     }
 
-  /* Navbar styles - slower transition for smoother morph */
-  .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    background: rgba(22, 26, 51, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(110, 65, 226, 0.2);
-    transform: translateY(-100%);
-    transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1); /* Slower, smoother easing */
-  }
-
-  .navbar.visible {
-    transform: translateY(0);
-  }
-
-  .navbar-logo {
-    height: 3rem;
-    width: auto;
-    opacity: 0;
-    transform: scale(0.8) translateY(10px);
-    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.2s; /* Delayed entrance for smoother morph */
-  }
-
-  .navbar.visible .navbar-logo {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-
-  /* Hero logo animation - synchronized timing */
-  .hero-logo {
-    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1); /* Match navbar timing */
-  }
-
-  .hero-logo.scrolled {
-    opacity: 0;
-    transform: scale(0.7) translateY(-30px); /* More pronounced scale down */
-  }
-
-  /* Mobile-specific adjustments */
-  @media (max-width: 640px) {
-    /* Reduce scroll speeds on mobile for better performance */
-    [data-scroll-speed] {
-      --scroll-speed: calc(var(--original-speed, 1) * 0.5);
-    }
-    
-    .c-header_title_line {
-    line-height: 0.9 !important;
-    overflow: visible !important;
-    word-break: keep-all;
-    overflow-wrap: normal;
-    /* Reduce transform complexity on mobile */
-    transform: translateY(0) !important;
-    transform-origin: center !important;
-    transform-style: flat !important;
-  }
-  
-  /* Ensure hero section has enough padding to prevent text cutoff */
-  section[data-scroll-section] {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  
-  /* Fix specific font sizing issues */
-  h1 {
-    line-height: 0.85 !important;
-    padding: 0 0.5rem;
-  }
-  
-  /* Ensure text containers have proper overflow handling */
-  .text-\[16vw\] {
-    line-height: 0.9 !important;
-    overflow: visible !important;
-  }
-  
-  /* Add breathing room around the hero content */
-  .flex.flex-col.items-center.space-y-4 {
-    padding: 2rem 1rem;
-    min-height: auto;
-  }
-  
-  /* Reduce animation intensity on mobile for smoother rendering */
-  .c-header_title_line {
-    transition-duration: 0.8s !important;
-    will-change: opacity !important;
-  }
-    
-    /* Ensure Vanta background doesn't cause horizontal scroll */
-    #vanta-bg {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    z-index: 1 !important;
-    pointer-events: none !important;
-    /* Remove fixed positioning that causes stickiness on mobile */
-  }
-    
-    #vanta-bg canvas {
-      max-width: 100vw !important;
-      left: 0 !important;
+    .fade-in-delay-2 {
+      animation-delay: 0.4s;
     }
 
-  /* Ensure the hero section has relative positioning to contain the absolute background */
-  section[data-scroll-section]:first-of-type {
-    position: relative !important;
-    isolation: isolate !important;
-  }
-
-  /* Disable sticky positioning and grid on mobile/tablet */
-  #our-approach-container .grid {
-    display: block !important;
-  }
-  
-  /* Left column - remove sticky behavior */
-  #our-approach-container .lg\:col-span-6 {
-    position: static !important;
-    height: auto !important;
-    padding-top: 2rem !important;
-  }
-  
-  /* Right column - remove large top padding */
-  #our-approach-container .lg\:col-span-5 {
-    padding-top: 2rem !important;
-    padding-bottom: 2rem !important;
-  }
-  
-  /* Reduce spacing between text boxes */
-  #our-approach-container .space-y-\[25vh\] > * + * {
-    margin-top: 3rem !important;
-  }
-  
-  /* Make graph container visible and properly sized */
-  #graph-container {
-    width: 100% !important;
-    height: 300px !important;
-    margin: 2rem 0 !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-  
-  /* Ensure graph is visible */
-  #graph3d {
-    height: 300px !important;
-    width: 100% !important;
-  }
-  
-  /* Make text boxes always visible */
-  .scroll-opacity-box {
-    opacity: 1 !important;
-    margin-bottom: 2rem !important;
-  }
-  
-  /* Adjust section spacing */
-  #our-approach-container {
-    min-height: auto !important;
-  }
-
-  /* Make the main title bigger on mobile */
-  #why-different h3 {
-    font-size: 3rem !important; /* Bigger than text-4xl */
-    line-height: 1.1 !important;
-    margin-bottom: 1.5rem !important;
-  }
-  
-  /* Make the subtitle/description bigger on mobile */
-  #why-different p {
-    font-size: 1.25rem !important; /* Bigger than base text */
-    line-height: 1.4 !important;
-  }
-}
-  
-  /* Tablet adjustments */
-  @media (min-width: 641px) and (max-width: 1024px) {
-    section[data-scroll-section] {
-      min-height: 100dvh;
+    .fade-in-delay-3 {
+      animation-delay: 0.6s;
     }
-  }
-  
-  /* Ensure proper spacing across all screen sizes */
-  @media (max-width: 768px) {
-    .space-y-4 > * + * {
-      margin-top: 1rem;
-    }
-  }
 
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+
+    /* Navbar */
+    .navbar {
+      backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.8);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    /* Feature cards */
+    .feature-card {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Benefit items */
+    .benefit-item {
+      border-left: 3px solid #FF6B6B;
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .benefit-item:hover {
+      border-left-width: 5px;
+      padding-left: 1.5rem;
+    }
+
+    /* Smooth scroll behavior */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Mobile optimizations */
+    @media (max-width: 640px) {
+      .gradient-blob {
+        width: 600px;
+        height: 600px;
+      }
+    }
+
+    /* CTA Button */
+    .cta-button {
+      background: linear-gradient(135deg, #FF6B6B 0%, #A855F7 100%);
+      transition: all 0.3s ease;
+    }
+
+    .cta-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+    }
   </style>
 </head>
 
-<body class="bg-[#161A33] text-white font-sans">
+<body class="bg-[#F8F9FA] text-gray-900 antialiased">
   <!-- Navbar -->
-  <nav id="navbar" class="navbar">
+  <nav class="navbar fixed top-0 left-0 right-0 z-50">
     <div class="container mx-auto px-6 py-4 flex items-center justify-between">
       <div class="flex items-center">
-        <img src="logo.png" alt="uplift Logo" class="navbar-logo" />
+        <img src="Logo.png" alt="kintra Logo" class="h-8 w-auto" />
       </div>
       <div class="hidden md:flex items-center space-x-8">
-        <a href="#why-different" class="text-[#D3D8E0]/70 hover:text-[#6E41E2] transition-colors duration-200">Features</a>
-        <a href="#our-approach" class="text-[#D3D8E0]/70 hover:text-[#6E41E2] transition-colors duration-200">Approach</a>
-        <a href="#contact" class="bg-[#6E41E2] hover:bg-[#6E41E2]/80 px-4 py-2 rounded-lg transition-colors duration-200">Contact</a>
+        <a href="#about" class="text-gray-700 hover:text-[#FF6B6B] transition-colors duration-200 font-medium">About</a>
+        <a href="#features" class="text-gray-700 hover:text-[#FF6B6B] transition-colors duration-200 font-medium">Features</a>
+        <a href="#benefits" class="text-gray-700 hover:text-[#FF6B6B] transition-colors duration-200 font-medium">Benefits</a>
+        <a href="#contact" class="cta-button text-white px-6 py-2 rounded-full font-semibold">Book a Call</a>
       </div>
+      <!-- Mobile menu button -->
+      <button id="mobile-menu-btn" class="md:hidden text-gray-700">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
     </div>
   </nav>
 
-  <div data-scroll-container>
-    <!-- Hero section -->
-    <section data-scroll-section class="min-h-screen flex items-center justify-center text-center px-4 py-8">
-      <div id="vanta-bg" class="fixed top-0" 
-      style="max-width: 100vw; height: 100vh; pointer-events: none; z-index: 1;"></div>
-      <div class="flex flex-col items-center space-y-4 relative z-10 w-full max-w-4xl mx-auto">
-        <!-- Logo -->
-        <div id="hero-logo" class="mb-4 sm:mb-8 hero-logo" data-scroll data-scroll-speed="-0.5" data-scroll-class="fade-in">
-          <img src="logo.png" alt="uplift Logo" class="h-20 sm:h-24 md:h-36 w-auto opacity-90" />
-        </div>
-        <h1 class="leading-none tracking-tight font-extrabold w-full">
-          <div 
-            data-scroll 
-            data-scroll-speed="-1.5" 
-            data-scroll-class="inview"
-            class="c-header_title_line w-full lg:flex lg:justify-center">
-            <span class="block lg:inline-block whitespace-normal lg:whitespace-nowrap text-[#D3D8E0] text-[12vw] sm:text-[14vw] md:text-[12vw] lg:text-[9vw] px-2">
-              User Testing
-            </span>
-          </div>
-          <div 
-          class="block text-[#6E41E2] text-[12vw] sm:text-[14vw] md:text-[12vw] lg:text-[9vw] mb-3 sm:mb-7 relative px-2"
-          style="letter-spacing: normal; word-spacing: normal;">
-          <div class="invisible">Reinvented.</div>
-            <!-- Each letter with individual animation speed positioned absolutely -->
-          <div class="absolute top-0 left-0 w-full h-full flex justify-center" style="letter-spacing: normal;">
-            <div class="inline-block lg:whitespace-nowrap">
-                <span data-scroll data-scroll-speed="1" data-scroll-class="inview" class="c-header_title_line inline-block">R</span><span 
-                  data-scroll data-scroll-speed="1.4" data-scroll-class="inview" class="c-header_title_line inline-block">e</span><span 
-                  data-scroll data-scroll-speed="1.8" data-scroll-class="inview" class="c-header_title_line inline-block">i</span><span 
-                  data-scroll data-scroll-speed="2.2" data-scroll-class="inview" class="c-header_title_line inline-block">n</span><span 
-                  data-scroll data-scroll-speed="1.2" data-scroll-class="inview" class="c-header_title_line inline-block">v</span><span 
-                  data-scroll data-scroll-speed="1.6" data-scroll-class="inview" class="c-header_title_line inline-block">e</span><span 
-                  data-scroll data-scroll-speed="2.0" data-scroll-class="inview" class="c-header_title_line inline-block">n</span><span 
-                  data-scroll data-scroll-speed="1.3" data-scroll-class="inview" class="c-header_title_line inline-block">t</span><span 
-                  data-scroll data-scroll-speed="1.7" data-scroll-class="inview" class="c-header_title_line inline-block">e</span><span 
-                  data-scroll data-scroll-speed="2.1" data-scroll-class="inview" class="c-header_title_line inline-block">d</span><span 
-                  data-scroll data-scroll-speed="1.9" data-scroll-class="inview" class="c-header_title_line inline-block">.</span>
-            </div>
-          </div>
-        </div>
-        </h1>
-    
-        <!-- Micro-tagline -->
-        <div data-scroll data-scroll-speed="3" data-scroll-class="fade-in-up">
-          <span class="block text-xl sm:text-2xl md:text-4xl text-[#D3D8E0]/70 max-w-2xl leading-relaxed mb-10 sm:mb-14 md:mb-20 lg:mb-6 px-4">
-            Next level user testing without live users.
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <!-- Gradient Background -->
+    <div class="gradient-blob" style="top: 10%; right: -20%;"></div>
+
+    <div class="container mx-auto px-6 relative z-10">
+      <div class="max-w-4xl mx-auto text-center">
+        <!-- Small label -->
+        <div class="fade-in mb-8">
+          <span class="inline-block px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full text-sm font-semibold text-gray-700 border border-gray-200">
+            For Modern Employers in Switzerland
           </span>
         </div>
-        
-        <!-- Scroll down hint -->
-        <div data-scroll data-scroll-speed="3" data-scroll-class="fade-in-up">
-          <div class="flex flex-col items-center text-[#D3D8E0]/50 animate-bounce">
-            <svg class="w-5 h-5 sm:w-6 sm:h-6 mb-1" fill="none" stroke="currentColor" stroke-width="2"
-                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
-            </svg>
-            <span class="text-xs sm:text-sm tracking-wide">Scroll down</span>
+
+        <!-- Main headline -->
+        <h1 class="fade-in fade-in-delay-1 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-tight mb-8 pb-2">
+          <span class="block text-gray-900">
+            Finally
+          </span>
+          <span class="block text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B6B] to-[#A855F7] pb-2">
+            A Holistic Family-Planning Platform
+          </span>
+        </h1>
+
+        <!-- Subheadline -->
+        <p class="fade-in fade-in-delay-2 text-xl md:text-2xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
+          Support your employees through their family-planning journey—from fertility to parenthood.
+        </p>
+
+        <!-- CTA -->
+        <div class="fade-in fade-in-delay-3 flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <a href="#contact" class="cta-button text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg">
+            Book a 15-min Call
+          </a>
+          <div class="text-sm text-gray-600">
+            <span class="font-bold text-2xl text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B6B] to-[#A855F7]">5 CHF</span> per employee
           </div>
         </div>
-      </div>            
-    </section>
 
-    <!-- Why we're different -->
-    <section id="why-different" data-scroll-section class="relative px-6 py-20">
-      <hr class="border-t border-[#6E41E2]/40 w-1/2 mx-auto my-20" 
-          data-scroll data-scroll-delay="0.1" data-scroll-speed="4" />
-          
-      <div id="wd-target" class="max-w-6xl mx-auto flex flex-col md:flex-row gap-10 relative">
-        <!-- LEFT COLUMN ─ stays sticky until #wd-target is done -->
-        <div class="md:w-2/5 self-start"
-            data-scroll
-            data-scroll-sticky
-            data-scroll-target="#scroll-region"
-            style="top:6rem">
-    
-          <!-- Spacer -->
-          <div class="h-24 md:h-48"></div>
+        <!-- Scroll indicator -->
+        <div class="fade-in fade-in-delay-3 mt-20 flex flex-col items-center text-gray-400 animate-bounce">
+          <svg class="w-6 h-6 mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+          </svg>
+          <span class="text-sm">Scroll down</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-          <h3 class="text-4xl md:text-6xl text-[#D3D8E0]/70 mb-4 leading-snug">
-            We're different
-          </h3>
-          <p class="text-[#D3D8E0]/50 text-base md:text-4xl">
-            Our AI platform lets you test ideas instantly leveraging a digital twin
-            of your website.
+  <!-- We're Different Section -->
+  <section id="about" class="relative py-24 px-6 bg-white">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-5xl md:text-6xl font-bold text-gray-900 mb-8">
+        We're <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B6B] to-[#A855F7]">different</span>
+      </h2>
+      <div class="max-w-3xl mx-auto">
+        <p class="text-xl md:text-2xl text-gray-700 leading-relaxed mb-8">
+          kintra is your digital fertility concierge — combining medical insight, AI-powered guidance, and human support to help you make confident reproductive decisions, on your terms.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center text-2xl md:text-3xl font-bold">
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B6B] to-[#FF9F6B]">Clarity.</span>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FF9F6B] to-[#A855F7]">Control.</span>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#A855F7] to-[#FF6B9D]">Confidence.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="relative py-24 px-6 bg-gradient-to-br from-[#FFF5F0] to-[#F8F0FF]">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          What We Offer
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          A comprehensive platform designed to support employees at every step
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Feature 1 -->
+        <div class="feature-card rounded-2xl p-8">
+          <div class="w-12 h-12 bg-gradient-to-br from-[#FF6B6B] to-[#FF9F6B] rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Personal Family-Planning Journey</h3>
+          <p class="text-gray-600">Tailored guidance for each employee's unique path to parenthood</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card rounded-2xl p-8">
+          <div class="w-12 h-12 bg-gradient-to-br from-[#A855F7] to-[#C084FC] rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Expert Master-classes & Mental Support</h3>
+          <p class="text-gray-600">Access to specialists and psychological support throughout the journey</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card rounded-2xl p-8">
+          <div class="w-12 h-12 bg-gradient-to-br from-[#FF6B9D] to-[#C084FC] rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Trusted Clinic & Specialist Recommendations</h3>
+          <p class="text-gray-600">Carefully vetted network of clinics and medical professionals</p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card rounded-2xl p-8">
+          <div class="w-12 h-12 bg-gradient-to-br from-[#FFB347] to-[#FF6B6B] rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Insurance & Employer Support Transparency</h3>
+          <p class="text-gray-600">Clear overview of coverage, benefits, and support available</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section id="benefits" class="relative py-24 px-6 bg-white">
+    <div class="gradient-blob" style="top: 50%; left: -30%; opacity: 0.3;"></div>
+
+    <div class="container mx-auto max-w-6xl relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- Left column - Title -->
+        <div>
+          <h2 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+            Why It <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B6B] to-[#A855F7]">Pays Off</span>
+          </h2>
+          <p class="text-xl text-gray-600 mb-8">
+            Investing in family planning support delivers measurable returns for your organization
           </p>
         </div>
-    
-        <!-- RIGHT COLUMN ─ scrollable content -->
-        <div id="scroll-region" class="md:w-3/5">
-          <div class="space-y-[10vh]">
-            <!-- Empty spacer block to delay first feature appearance -->
-            <div class="md:min-h-[50vh]"></div>
-            
-            <!-- Block 1 -->
-            <div class="relative min-h-[40vh] flex items-center">
-              <span
-                class="absolute top-0 left-0 inline-flex items-center justify-center
-                      px-8 py-4 rounded-full bg-[#6E41E2] text-[#161A33] text-2xl font-semibold"
-                data-scroll data-scroll-delay="0.1" data-scroll-speed="4">
-                01
-              </span>
-              <h2 class="text-[clamp(3rem,8vw,6.5rem)] text-[#D3D8E0] font-bold pl-16"
-                  data-scroll data-scroll-delay="0.4" data-scroll-speed="4">
-                Lightning Fast &#x26A1;&#xFE0F;
-              </h2>
-            </div>
-    
-            <!-- Block 2 -->
-            <div class="relative min-h-[40vh] flex items-center">
-              <span
-                class="absolute top-0 left-0 inline-flex items-center justify-center
-                      px-8 py-4 rounded-full bg-[#6E41E2] text-[#161A33] text-2xl font-semibold"
-                data-scroll data-scroll-delay="0.1" data-scroll-speed="4">
-                02
-              </span>
-              <h2 class="text-[clamp(3rem,8vw,6.5rem)] text-[#D3D8E0] font-bold pl-16"
-                  data-scroll data-scroll-delay="0.5" data-scroll-speed="4">
-                Ultra scalable &#x1F680;&#xFE0F;
-              </h2>
-            </div>
-    
-            <!-- Block 3 -->
-            <div class="relative min-h-[40vh] flex items-center">
-              <span
-                class="absolute top-0 left-0 inline-flex items-center justify-center
-                      px-8 py-4 rounded-full bg-[#6E41E2] text-[#161A33] text-2xl font-semibold"
-                data-scroll data-scroll-delay="0.1" data-scroll-speed="4">
-                03
-              </span>
-              <h2 class="text-[clamp(3rem,8vw,6.5rem)] text-[#D3D8E0] font-bold pl-16"
-                  data-scroll data-scroll-delay="0.6" data-scroll-speed="4">
-                Completely risk-free &#x1F6E1;&#xFE0F;
-              </h2>
-            </div>
 
-            <!-- Block 4 -->
-            <div class="relative min-h-[40vh] flex items-center">
-              <span
-                class="absolute top-0 left-0 inline-flex items-center justify-center
-                      px-8 py-4 rounded-full bg-[#6E41E2] text-[#161A33] text-2xl font-semibold"
-                data-scroll data-scroll-delay="0.1" data-scroll-speed="4">
-                04
-              </span>
-              <h2 class="text-[clamp(3rem,8vw,6.5rem)] text-[#D3D8E0] font-bold pl-16"
-                  data-scroll data-scroll-delay="0.7" data-scroll-speed="4">
-                Super flexible &#x1F39B;&#xFE0F;
-              </h2>
-            </div>
+        <!-- Right column - Benefits -->
+        <div class="space-y-6">
+          <div class="benefit-item bg-white/50 backdrop-blur-sm rounded-xl p-6">
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Up to 80% lower replacement & attrition costs</h3>
+            <p class="text-gray-600">Retain valuable talent and reduce costly turnover</p>
+          </div>
+
+          <div class="benefit-item bg-white/50 backdrop-blur-sm rounded-xl p-6">
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Tax-deductible operating expense</h3>
+            <p class="text-gray-600">Full tax deduction as a business expense in Switzerland</p>
+          </div>
+
+          <div class="benefit-item bg-white/50 backdrop-blur-sm rounded-xl p-6">
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Increases female retention & leadership share</h3>
+            <p class="text-gray-600">Support diversity and inclusion goals with tangible results</p>
+          </div>
+
+          <div class="benefit-item bg-white/50 backdrop-blur-sm rounded-xl p-6">
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Supports social reporting under ESRS S1</h3>
+            <p class="text-gray-600">Meet EU sustainability reporting standards</p>
+          </div>
+
+          <div class="benefit-item bg-white/50 backdrop-blur-sm rounded-xl p-6">
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Qualification for family-friendly employer awards</h3>
+            <p class="text-gray-600">Enhance your employer brand and attract top talent</p>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Our approach -->
-    <section id="our-approach" data-scroll-section class="relative px-6 py-20">
-      <hr class="border-t border-[#6E41E2]/40 w-1/2 mx-auto my-20"
-          data-scroll data-scroll-delay="0.1" data-scroll-speed="4" />
-      
-      <!-- This is the container for the sticky elements -->
-      <div id="our-approach-container" class="relative min-h-[100vh]">
-        <!-- Use grid layout for content -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          <!-- Left column - for title (takes 6/12 columns) -->
-          <div class="lg:col-span-6 sticky top-0 pt-20 h-screen flex flex-col"
-              data-scroll
-              data-scroll-sticky
-              data-scroll-target="#our-approach-container">
+  <!-- Contact Section -->
+  <section id="contact" class="relative py-24 px-6 bg-gradient-to-br from-[#FF6B6B] to-[#A855F7] text-white">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6">
+        Let's Talk About Your Family Planning Benefit
+      </h2>
+      <p class="text-xl mb-8 opacity-90">
+        Book a 15-minute call to learn how you can benefit at just 5 CHF per employee
+      </p>
 
-            <!-- Spacer -->
-            <div class="md:h-24"></div>
-            
-            <!-- Title - stays at the top -->
-            <div class="text-4xl md:text-6xl text-[#D3D8E0]/60 text-center font-light mb-8 relative z-10">
-              Our Unique Approach
-            </div>
-            
-            <!-- Middle area with graph -->
-            <div class="flex-grow flex flex-col items-center justify-center relative overflow-hidden">
-              <!-- Remove Vanta container and keep only the 3D Graph -->
-              <div id="graph-container" 
-              class="relative z-10 w-full h-[400px] opacity-0 transform translate-x-0"
-              data-scroll
-              data-scroll-class="graph-visible"
-              data-scroll-offset="100">
-                <div id="graph3d" class="w-full h-[400px] flex items-center justify-center"></div>
-              </div>          
-            </div>
-          </div>
-          
-          <!-- Right column - content that scrolls (takes 5/12 columns with offset)-->
-          <div class="lg:col-span-5 lg:col-start-7 pt-[60vh] pb-[20vh] space-y-[25vh]">
-            <!-- Text sections that will scroll past the sticky elements -->
-            <div class="p-8 bg-[#161A33]/80 backdrop-blur-sm rounded-lg border border-[#6E41E2]/20 scroll-opacity-box relative z-20"
-                data-scroll
-                data-scroll-id="box1">
-              <h3 class="text-2xl text-[#D3D8E0] mb-4">Digital Twin</h3>
-              <p class="text-[#D3D8E0]/80 text-lg leading-relaxed">
-                We create a digital replica of the website.
-              </p>
-            </div>
-            
-            <div class="p-8 bg-[#161A33]/80 backdrop-blur-sm rounded-lg border border-[#6E41E2]/20 scroll-opacity-box relative z-20"
-                data-scroll
-                data-scroll-id="box2">
-              <h3 class="text-2xl text-[#D3D8E0] mb-4">User Behavior</h3>
-              <p class="text-[#D3D8E0]/80 text-lg leading-relaxed">
-                Our AI model learns the user behaviour and replicates its dynamics
-              </p>
-            </div>
-            
-            <div class="p-8 bg-[#161A33]/80 backdrop-blur-sm rounded-lg border border-[#6E41E2]/20 scroll-opacity-box relative z-20"
-                data-scroll
-                data-scroll-id="box3">
-              <h3 class="text-2xl text-[#D3D8E0] mb-4">Massive Parallel Testing</h3>
-              <p class="text-[#D3D8E0]/80 text-lg leading-relaxed">
-                We replicate millions of user interactions—instantly. That means no real traffic, no risks, no downtime.
-              </p>
-            </div>
-            
-            <div class="p-8 bg-[#161A33]/80 backdrop-blur-sm rounded-lg border border-[#6E41E2]/20 scroll-opacity-box relative z-20"
-                data-scroll
-                data-scroll-id="box4">
-              <h3 class="text-2xl text-[#D3D8E0] mb-4">Data-Driven Decisions</h3>
-              <p class="text-[#D3D8E0]/80 text-lg leading-relaxed">
-                Iterate confidently, validate every change, and launch faster with actionable insights backed by real data.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+      <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 max-w-md mx-auto">
+        <form id="contactForm" class="space-y-4">
+          <input
+            type="text"
+            name="name"
+            required
+            placeholder="Your Name"
+            class="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 placeholder-white/70 text-white focus:outline-none focus:ring-2 focus:ring-white/50"
+          />
 
-    <!-- Contact Form -->
-    <section id="contact" data-scroll-section class="min-h-screen flex flex-col items-center justify-center px-6">
-      <hr class="border-t border-[#6E41E2]/40 w-1/2 mx-auto my-20"
-          data-scroll data-scroll-delay="0.1" data-scroll-speed="4" />
+          <input
+            type="email"
+            name="email"
+            required
+            placeholder="company@example.com"
+            class="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 placeholder-white/70 text-white focus:outline-none focus:ring-2 focus:ring-white/50"
+          />
 
-      <div data-scroll data-scroll-speed="2"
-          class="text-4xl md:text-6xl text-[#D3D8E0]/60 text-center font-light mb-4">
-        Get in touch
-      </div>
+          <input
+            type="text"
+            name="company"
+            placeholder="Company Name"
+            class="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 placeholder-white/70 text-white focus:outline-none focus:ring-2 focus:ring-white/50"
+          />
 
-      <!-- ✨ Wrapper keeps the space so the thank-you sits exactly where the form did -->
-      <div id="form-wrapper" class="w-full max-w-sm flex flex-col gap-3 mt-16 mb-16">
-        <form id="contactForm" class="flex flex-col gap-3">
-          <input type="email" name="email" required placeholder="you@example.com"
-                class="px-4 py-3 rounded-lg bg-gray-800 placeholder-gray-500 focus:outline-none" />
+          <textarea
+            name="message"
+            rows="4"
+            placeholder="Tell us about your organization and needs..."
+            class="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 placeholder-white/70 text-white focus:outline-none focus:ring-2 focus:ring-white/50 resize-none"
+          ></textarea>
 
-          <textarea name="message" required rows="5" placeholder="Tell us how we can help…"
-                  class="px-4 py-3 rounded-lg bg-gray-800 placeholder-gray-500 focus:outline-none resize-none"></textarea>
-
-          <button type="submit"
-                 class="px-4 py-3 bg-[#6E41E2] hover:bg-[#6E41E2]/80 rounded-lg font-medium">
-            Contact&nbsp;Us
+          <button
+            type="submit"
+            class="w-full px-6 py-4 bg-white text-[#FF6B6B] rounded-lg font-bold text-lg hover:bg-gray-100 transition-all duration-300 hover:scale-105"
+          >
+            Book Your 15-Min Call
           </button>
         </form>
 
-        <!-- Hidden until JS reveals it -->
-        <div id="status" class="text-center text-lg font-semibold hidden"></div>
+        <div id="status" class="mt-4 text-center font-semibold hidden"></div>
       </div>
-    </section>
-  </div>
 
-  <!-- Required Scripts -->
-  <!-- Third-party libraries -->
-  <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://unpkg.com/three@0.150.1/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/3d-force-graph"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.dots.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+      <div class="mt-12 text-sm opacity-75">
+        <a href="https://www.kintrafamily.com" class="hover:underline">www.kintrafamily.com</a>
+      </div>
+    </div>
+  </section>
 
-  <!-- EmailJS Configuration -->
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-8 px-6">
+    <div class="container mx-auto max-w-6xl text-center">
+      <p class="text-gray-400">
+        &copy; 2026 kintra. A holistic family-planning platform for modern employers in Switzerland.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
   <script>
-    (function() {
-      emailjs.init('pU3hjUGzTo5oQCZQl');
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.createElement('div');
+    mobileMenu.className = 'md:hidden fixed inset-0 bg-white z-40 hidden';
+    mobileMenu.innerHTML = `
+      <div class="flex flex-col items-center justify-center h-full space-y-8">
+        <a href="#about" class="text-2xl font-semibold text-gray-700 hover:text-[#FF6B6B]">About</a>
+        <a href="#features" class="text-2xl font-semibold text-gray-700 hover:text-[#FF6B6B]">Features</a>
+        <a href="#benefits" class="text-2xl font-semibold text-gray-700 hover:text-[#FF6B6B]">Benefits</a>
+        <a href="#contact" class="cta-button text-white px-8 py-3 rounded-full font-semibold">Book a Call</a>
+      </div>
+    `;
+    document.body.appendChild(mobileMenu);
 
-      const form = document.getElementById('contactForm');
-      const status = document.getElementById('status');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
 
-      form.addEventListener('submit', async (e) => {
+    // Close mobile menu when clicking on a link
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    // Smooth scroll for all anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
-
-        try {
-          await emailjs.send('service_katiq3q', 'template_8s7vamo', {
-            user_email: form.email.value,
-            message: form.message.value
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
           });
-
-          /* Success – hide the form, show thank-you */
-          form.classList.add('hidden');
-          status.textContent = "Thanks! We'll be in touch.";
-          status.classList.remove('hidden', 'text-red-400');
-          status.classList.add('text-[#6E41E2]');
-        } catch (err) {
-          console.error(err);
-
-          /* Error – keep form visible, show error */
-          status.textContent = "Oops — something went wrong. Please try again.";
-          status.classList.remove('hidden', 'text-green-400');
-          status.classList.add('text-red-400');
         }
-      });
-    })();
-  </script>
-
-  <!-- Navbar Scroll Effect -->
-  <script>
-    let navbar, heroLogo, isNavbarVisible = false;
-
-    document.addEventListener('DOMContentLoaded', () => {
-      navbar = document.getElementById('navbar');
-      heroLogo = document.getElementById('hero-logo');
-      
-      // Smooth scroll for navigation links
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          const targetId = this.getAttribute('href');
-          const target = document.querySelector(targetId);
-          if (target) {
-            if (window.scroll) {
-              window.scroll.scrollTo(target);
-            } else {
-              target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-              });
-            }
-          }
-        });
       });
     });
 
-    // Updated function with smoother transition logic
-    function handleNavbarScroll(scrollY) {
-      const transitionStart = 150; // Start transition earlier
-      const transitionEnd = 250;   // Complete transition later
-      
-      // Calculate progress between 0 and 1
-      const progress = Math.max(0, Math.min(1, (scrollY - transitionStart) / (transitionEnd - transitionStart)));
-      
-      // Hero logo: start fading at transition start
-      if (scrollY > transitionStart) {
-        if (!heroLogo.classList.contains('scrolled')) {
-          heroLogo.classList.add('scrolled');
-        }
-      } else {
-        heroLogo.classList.remove('scrolled');
-      }
-      
-      // Navbar: appear slightly after hero starts fading for overlap effect
-      const shouldShowNavbar = scrollY > transitionStart + 30; // 30px delay for smooth morph
-      
-      if (shouldShowNavbar && !isNavbarVisible) {
-        navbar.classList.add('visible');
-        isNavbarVisible = true;
-      } else if (!shouldShowNavbar && isNavbarVisible) {
-        navbar.classList.remove('visible');
-        isNavbarVisible = false;
-      }
-    }
-  </script>
+    // Contact form handling (placeholder - integrate with your backend)
+    const contactForm = document.getElementById('contactForm');
+    const status = document.getElementById('status');
 
-  <!-- Locomotive Scroll Setup -->
-  <script>
-    window.addEventListener("load", () => {
-      // Initialize Locomotive Scroll
-      const scroll = new LocomotiveScroll({
-        el: document.querySelector("[data-scroll-container]"),
-        smooth: true,
-        lerp: 0.08,
-      });
-      
-      // Make scroll available globally for navigation
-      window.scroll = scroll;
-      
-      // Listen to Locomotive Scroll events for navbar
-      scroll.on('scroll', (obj) => {
-        // Handle navbar visibility based on scroll position
-        if (typeof handleNavbarScroll === 'function') {
-          handleNavbarScroll(obj.scroll.y);
-        }
-      });
-      
-      // Create our scroll-based opacity effect for boxes
-      const opacityBoxes = document.querySelectorAll('.scroll-opacity-box');
-      
-      // Track scroll position for each box
-      opacityBoxes.forEach((box) => {
-        const boxId = box.getAttribute('data-scroll-id');
-        
-        // Register the box as a target for scrolling events
-        scroll.on('scroll', (obj) => {
-          const scrollData = obj.currentElements[boxId];
-          
-          if (scrollData) {
-            // Calculate opacity based on progress through viewport
-            const progress = scrollData.progress;
-            let opacity = 0;
-            
-            // Fade in from 0.0 to 0.5 progress
-            if (progress < 0.5) {
-              opacity = progress * 2; // 0 to 1
-            } 
-            // Fade out from 0.5 to 1.0 progress
-            else {
-              opacity = 2 - (progress * 2); // 1 to 0
-            }
-            
-            // Ensure opacity stays within valid range
-            opacity = Math.max(0, Math.min(1, opacity));
-            
-            // Apply the calculated opacity
-            box.style.opacity = opacity;
-          }
-        });
-      });
-      
-      // Update scroll system
-      scroll.update();
-      
-      // Make sure scroll is updated after all content is loaded
-      setTimeout(() => scroll.update(), 500);
-    });
-  </script>
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
 
-<!-- Vanta Background Setup -->
-<!-- Vanta Background Setup -->
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const vantaBg = document.getElementById('vanta-bg');
-    
-    // Initialize Vanta
-    const vantaEffect = VANTA.DOTS({
-      el: "#vanta-bg",
-      mouseControls: false,
-      touchControls: false,
-      gyroControls: false,
-      minHeight: window.innerHeight,
-      minWidth: window.innerWidth * 1.5,
-      scale: 4.0,
-      scaleMobile: 4.0,
-      backgroundColor: 0x161A33,
-      color: 0x6e41e2,
-      spacing: 27.00,
-      showLines: false,
-      size: 1.0,
-      speed: 0.0
-    });
-    
-    // Override the camera animation by setting position directly after initialization
-    setTimeout(() => {
-      if (vantaEffect && vantaEffect.camera) {
-        // Set camera to final position immediately (skip the smooth animation)
-        vantaEffect.camera.position.x = vantaEffect.camera.tx || 0;
-        vantaEffect.camera.position.y = vantaEffect.camera.ty || 50;
-        vantaEffect.camera.position.z = vantaEffect.camera.tz || 350;
-        vantaEffect.camera.lookAt(0, 0, 0);
-      }
-      vantaBg.style.opacity = '1';
-    }, 100);
-    
-    // Handle resize events
-    window.addEventListener('resize', () => {
-      vantaEffect.resize();
-      vantaEffect.setOptions({
-        minHeight: window.innerHeight,
-        minWidth: window.innerWidth * 1.5
-      });
-    });
-  });
-</script>
+      // Placeholder for form submission
+      // You can integrate this with EmailJS, your backend API, or other services
 
-  <!-- 3D Graph Setup -->
-  <script>
-    // Seeded random number generator for reproducible results
-    function mulberry32(seed) {
-      return function() {
-        seed |= 0;
-        seed = seed + 0x6D2B79F5 | 0;
-        let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
-        t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
-        return ((t ^ t >>> 14) >>> 0) / 4294967296;
-      };
-    }
-
-// 3D Graph Setup - Fixed but preserving original appearance
-// This version fixes the initialization issue while keeping the original visual behavior
-
-// Seeded random number generator for reproducible results
-function mulberry32(seed) {
-  return function() {
-    seed |= 0;
-    seed = seed + 0x6D2B79F5 | 0;
-    let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
-    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
-    return ((t ^ t >>> 14) >>> 0) / 4294967296;
-  };
-}
-
-// Wait for container to have proper dimensions (minimal waiting)
-function waitForGraphContainer(maxAttempts = 20) {
-  return new Promise((resolve, reject) => {
-    let attempts = 0;
-    
-    function checkContainer() {
-      const container = document.getElementById('graph3d');
-      const graphContainer = document.getElementById('graph-container');
-      
-      if (!container || !graphContainer) {
-        if (attempts < maxAttempts) {
-          attempts++;
-          setTimeout(checkContainer, 50);
-          return;
-        }
-        reject(new Error('Graph containers not found'));
-        return;
-      }
-      
-      const containerRect = container.getBoundingClientRect();
-      
-      // More lenient check - just ensure container exists and has some dimensions
-      if (containerRect.width > 0 && containerRect.height > 0) {
-        resolve({
-          container,
-          graphContainer,
-          width: containerRect.width,
-          height: containerRect.height
-        });
-      } else if (attempts < maxAttempts) {
-        attempts++;
-        setTimeout(checkContainer, 50);
-      } else {
-        // Fallback - proceed anyway with default dimensions
-        resolve({
-          container,
-          graphContainer,
-          width: 800,
-          height: 400
-        });
-      }
-    }
-    
-    checkContainer();
-  });
-}
-
-// Initialize graph with original settings but proper dimension handling
-async function initializeGraph() {
-  try {
-    // Quick check for container readiness
-    const { container, width, height } = await waitForGraphContainer();
-    
-    const N = 150;
-    let distance = window.innerWidth <= 640 ? 700 : 450;
-    const rand = mulberry32(12345);
-    
-    // Generate graph data (same as original)
-    const gData = {
-      nodes: [...Array(N).keys()].map(i => {
-        const rnd = rand();
-        let shape = "sphere";
-        if (rnd < 0.1) shape = "box";
-        else if (rnd < 0.2) shape = "cone";
-        return { id: i, shape };
-      }),
-      links: [...Array(N).keys()]
-        .filter(id => id)
-        .map(id => ({
-          source: id,
-          target: Math.round(rand() * (id - 1))
-        }))
-    };
-
-    // Initialize with explicit dimensions but original settings
-    const Graph = new ForceGraph3D(container)
-      .width(width)
-      .height(height)
-      .cooldownTime(100) // Keep original short cooldown
-      .enableNodeDrag(false)
-      .enableNavigationControls(false)
-      .showNavInfo(false)
-      .cameraPosition({ z: distance, x: 0 }) // Set camera position immediately
-      .backgroundColor("rgba(0,0,0,0)")
-      .nodeRelSize(1)
-      .nodeResolution(16)
-      .nodeColor(() => "#D3D8E0")
-      .linkColor(() => "#D3D8E0")
-      .linkWidth(1)
-      .linkDirectionalParticles(2)
-      .linkDirectionalParticleWidth(2)
-      .linkDirectionalParticleColor(() => "#D3D8E0")
-      .graphData(gData); // Load data immediately
-
-    // Set renderer background
-    if (Graph.renderer) {
-      Graph.renderer().setClearColor(0x000000, 0);
-    }
-
-    // Start camera orbit animation immediately (like original)
-    let angle = 0;
-    const animationInterval = setInterval(() => {
       try {
-        Graph.cameraPosition({
-          x: distance * Math.sin(angle),
-          z: distance * Math.cos(angle)
-        });
-        angle += Math.PI / 300;
-      } catch (error) {
-        console.error('Animation error:', error);
-        clearInterval(animationInterval);
-      }
-    }, 60);
+        // Simulate submission
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
-    // Handle window resize
-    window.addEventListener('resize', () => {
-      const newRect = container.getBoundingClientRect();
-      if (newRect.width > 0 && newRect.height > 0) {
-        Graph.width(newRect.width).height(newRect.height);
-        distance = window.innerWidth <= 640 ? 650 : 400;
+        contactForm.classList.add('hidden');
+        status.textContent = "Thanks! We'll be in touch soon.";
+        status.classList.remove('hidden');
+        status.classList.add('text-white');
+      } catch (err) {
+        console.error(err);
+        status.textContent = "Oops — something went wrong. Please try again.";
+        status.classList.remove('hidden');
+        status.classList.add('text-red-300');
       }
     });
-    
-    return Graph;
-    
-  } catch (error) {
-    console.error('Graph initialization failed:', error);
-    
-    // Single retry with shorter delay
-    setTimeout(() => {
-      initializeGraph();
-    }, 1000);
-  }
-}
 
-// Setup the 3D graph once DOM is loaded (original approach but with dimension check)
-document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(() => {
-    initializeGraph();
-  }, 200); // Keep original short delay
-});
-
-// Backup initialization (but don't duplicate if already initialized)
-window.addEventListener('load', () => {
-  if (!document.querySelector('#graph3d canvas')) {
-    setTimeout(initializeGraph, 300);
-  }
-});
+    // Smooth scroll for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const target = document.querySelector(targetId);
+        if (target) {
+          const offsetTop = target.offsetTop - 80;
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
   </script>
 </body>
 </html>
