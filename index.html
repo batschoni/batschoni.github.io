@@ -25,10 +25,10 @@
   <title>kintra — Family Planning Platform</title>
 
   <!-- Favicon -->
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
@@ -57,9 +57,9 @@
       height: 800px;
       border-radius: 50%;
       background: radial-gradient(circle at 30% 50%,
-        rgba(255, 179, 71, 0.9) 0%,
-        rgba(255, 107, 107, 0.8) 30%,
-        rgba(168, 85, 247, 0.7) 70%);
+        rgba(255, 186, 40, 0.9) 0%,
+        rgba(240, 89, 49, 0.8) 30%,
+        rgba(255, 200, 100, 0.7) 70%);
       filter: blur(60px);
       animation: float 20s ease-in-out infinite;
       z-index: 1;
@@ -124,7 +124,7 @@
 
     /* Benefit items */
     .benefit-item {
-      border-left: 3px solid #FF6B6B;
+      border-left: 3px solid #f05931;
       padding-left: 1rem;
       margin-bottom: 1rem;
       transition: all 0.3s ease;
@@ -150,13 +150,13 @@
 
     /* CTA Button */
     .cta-button {
-      background: linear-gradient(135deg, #FF6B6B 0%, #A855F7 100%);
+      background: linear-gradient(135deg, #f05931 0%, #ffba28 100%);
       transition: all 0.3s ease;
     }
 
     .cta-button:hover {
       transform: scale(1.05);
-      box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+      box-shadow: 0 10px 30px rgba(240, 89, 49, 0.3);
     }
   </style>
 </head>
@@ -166,12 +166,12 @@
   <nav class="navbar fixed top-0 left-0 right-0 z-50">
     <div class="container mx-auto px-6 py-4 flex items-center justify-between">
       <div class="flex items-center">
-        <img src="logo.png" alt="kintra Logo" class="h-8 w-auto" />
+        <img src="logo.png" alt="kintra Logo" class="h-12 w-auto" />
       </div>
       <div class="hidden md:flex items-center space-x-8">
-        <a href="#about" class="text-gray-700 hover:text-[#FF6B6B] transition-colors duration-200 font-medium">About</a>
-        <a href="#features" class="text-gray-700 hover:text-[#FF6B6B] transition-colors duration-200 font-medium">Features</a>
-        <a href="#benefits" class="text-gray-700 hover:text-[#FF6B6B] transition-colors duration-200 font-medium">Benefits</a>
+        <a href="#about" class="text-gray-700 hover:text-[#f05931] transition-colors duration-200 font-medium">About</a>
+        <a href="#features" class="text-gray-700 hover:text-[#f05931] transition-colors duration-200 font-medium">Features</a>
+        <a href="#benefits" class="text-gray-700 hover:text-[#f05931] transition-colors duration-200 font-medium">Benefits</a>
         <a href="#contact" class="cta-button text-white px-6 py-2 rounded-full font-semibold">Book a Call</a>
       </div>
       <!-- Mobile menu button -->
@@ -202,7 +202,7 @@
           <span class="block text-gray-900">
             Finally
           </span>
-          <span class="block text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B6B] to-[#A855F7] pb-2">
+          <span class="block text-transparent bg-clip-text bg-gradient-to-r from-[#f05931] to-[#ffba28] pb-2">
             A Holistic Family-Planning Platform
           </span>
         </h1>
@@ -218,7 +218,7 @@
             Book a 15-min Call
           </a>
           <div class="text-sm text-gray-600">
-            <span class="font-bold text-2xl text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B6B] to-[#A855F7]">5 CHF</span> per employee
+            <span class="font-bold text-2xl text-transparent bg-clip-text bg-gradient-to-r from-[#f05931] to-[#ffba28]">5 CHF</span> per employee
           </div>
         </div>
 
@@ -237,16 +237,16 @@
   <section id="about" class="relative py-24 px-6 bg-white">
     <div class="container mx-auto max-w-4xl text-center">
       <h2 class="text-5xl md:text-6xl font-bold text-gray-900 mb-8">
-        We're <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B6B] to-[#A855F7]">different</span>
+        We're <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#f05931] to-[#ffba28]">different</span>
       </h2>
       <div class="max-w-3xl mx-auto">
         <p class="text-xl md:text-2xl text-gray-700 leading-relaxed mb-8">
           kintra is your digital fertility concierge — combining medical insight, AI-powered guidance, and human support to help you make confident reproductive decisions, on your terms.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center text-2xl md:text-3xl font-bold">
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B6B] to-[#FF9F6B]">Clarity.</span>
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FF9F6B] to-[#A855F7]">Control.</span>
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#A855F7] to-[#FF6B9D]">Confidence.</span>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#f05931] to-[#ff8f4c]">Clarity.</span>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#ff8f4c] to-[#ffba28]">Control.</span>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#ffba28] to-[#f05931]">Confidence.</span>
         </div>
       </div>
     </div>
@@ -267,7 +267,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <!-- Feature 1 -->
         <div class="feature-card rounded-2xl p-8">
-          <div class="w-12 h-12 bg-gradient-to-br from-[#FF6B6B] to-[#FF9F6B] rounded-xl flex items-center justify-center mb-6">
+          <div class="w-12 h-12 bg-gradient-to-br from-[#f05931] to-[#ff8f4c] rounded-xl flex items-center justify-center mb-6">
             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
             </svg>
@@ -278,7 +278,7 @@
 
         <!-- Feature 2 -->
         <div class="feature-card rounded-2xl p-8">
-          <div class="w-12 h-12 bg-gradient-to-br from-[#A855F7] to-[#C084FC] rounded-xl flex items-center justify-center mb-6">
+          <div class="w-12 h-12 bg-gradient-to-br from-[#ffba28] to-[#ffd45a] rounded-xl flex items-center justify-center mb-6">
             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
             </svg>
@@ -289,7 +289,7 @@
 
         <!-- Feature 3 -->
         <div class="feature-card rounded-2xl p-8">
-          <div class="w-12 h-12 bg-gradient-to-br from-[#FF6B9D] to-[#C084FC] rounded-xl flex items-center justify-center mb-6">
+          <div class="w-12 h-12 bg-gradient-to-br from-[#f05931] to-[#ffd45a] rounded-xl flex items-center justify-center mb-6">
             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
             </svg>
@@ -300,7 +300,7 @@
 
         <!-- Feature 4 -->
         <div class="feature-card rounded-2xl p-8">
-          <div class="w-12 h-12 bg-gradient-to-br from-[#FFB347] to-[#FF6B6B] rounded-xl flex items-center justify-center mb-6">
+          <div class="w-12 h-12 bg-gradient-to-br from-[#ffba28] to-[#f05931] rounded-xl flex items-center justify-center mb-6">
             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
             </svg>
@@ -321,7 +321,7 @@
         <!-- Left column - Title -->
         <div>
           <h2 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-            Why It <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B6B] to-[#A855F7]">Pays Off</span>
+            Why It <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#f05931] to-[#ffba28]">Pays Off</span>
           </h2>
           <p class="text-xl text-gray-600 mb-8">
             Investing in family planning support delivers measurable returns for your organization
@@ -360,7 +360,7 @@
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="relative py-24 px-6 bg-gradient-to-br from-[#FF6B6B] to-[#A855F7] text-white">
+  <section id="contact" class="relative py-24 px-6 bg-gradient-to-br from-[#f05931] to-[#ffba28] text-white">
     <div class="container mx-auto max-w-4xl text-center">
       <h2 class="text-4xl md:text-5xl font-bold mb-6">
         Let's Talk About Your Family Planning Benefit
@@ -403,7 +403,7 @@
 
           <button
             type="submit"
-            class="w-full px-6 py-4 bg-white text-[#FF6B6B] rounded-lg font-bold text-lg hover:bg-gray-100 transition-all duration-300 hover:scale-105"
+            class="w-full px-6 py-4 bg-white text-[#f05931] rounded-lg font-bold text-lg hover:bg-gray-100 transition-all duration-300 hover:scale-105"
           >
             Book Your 15-Min Call
           </button>
@@ -428,6 +428,8 @@
   </footer>
 
   <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
   <script>
     // Mobile menu toggle
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -435,9 +437,9 @@
     mobileMenu.className = 'md:hidden fixed inset-0 bg-white z-40 hidden';
     mobileMenu.innerHTML = `
       <div class="flex flex-col items-center justify-center h-full space-y-8">
-        <a href="#about" class="text-2xl font-semibold text-gray-700 hover:text-[#FF6B6B]">About</a>
-        <a href="#features" class="text-2xl font-semibold text-gray-700 hover:text-[#FF6B6B]">Features</a>
-        <a href="#benefits" class="text-2xl font-semibold text-gray-700 hover:text-[#FF6B6B]">Benefits</a>
+        <a href="#about" class="text-2xl font-semibold text-gray-700 hover:text-[#f05931]">About</a>
+        <a href="#features" class="text-2xl font-semibold text-gray-700 hover:text-[#f05931]">Features</a>
+        <a href="#benefits" class="text-2xl font-semibold text-gray-700 hover:text-[#f05931]">Benefits</a>
         <a href="#contact" class="cta-button text-white px-8 py-3 rounded-full font-semibold">Book a Call</a>
       </div>
     `;
@@ -468,31 +470,37 @@
       });
     });
 
-    // Contact form handling (placeholder - integrate with your backend)
-    const contactForm = document.getElementById('contactForm');
-    const status = document.getElementById('status');
+    // EmailJS Configuration
+    (function() {
+      emailjs.init('pU3hjUGzTo5oQCZQl');
 
-    contactForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
+      const contactForm = document.getElementById('contactForm');
+      const status = document.getElementById('status');
 
-      // Placeholder for form submission
-      // You can integrate this with EmailJS, your backend API, or other services
+      contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-      try {
-        // Simulate submission
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        try {
+          await emailjs.send('service_katiq3q', 'template_8s7vamo', {
+            user_name: contactForm.name.value,
+            user_email: contactForm.email.value,
+            company: contactForm.company.value,
+            message: contactForm.message.value
+          });
 
-        contactForm.classList.add('hidden');
-        status.textContent = "Thanks! We'll be in touch soon.";
-        status.classList.remove('hidden');
-        status.classList.add('text-white');
-      } catch (err) {
-        console.error(err);
-        status.textContent = "Oops — something went wrong. Please try again.";
-        status.classList.remove('hidden');
-        status.classList.add('text-red-300');
-      }
-    });
+          // Success – hide the form, show thank-you
+          contactForm.classList.add('hidden');
+          status.textContent = "Thanks! We'll be in touch soon.";
+          status.classList.remove('hidden');
+          status.classList.add('text-white');
+        } catch (err) {
+          console.error(err);
+          status.textContent = "Oops — something went wrong. Please try again.";
+          status.classList.remove('hidden');
+          status.classList.add('text-red-300');
+        }
+      });
+    })();
 
     // Smooth scroll for navigation
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
